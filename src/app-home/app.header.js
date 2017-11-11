@@ -45,13 +45,9 @@ class SearchHeader extends Component {
                         <Header as='h5' className='ui inverted header'>{this.state.title}</Header>
                     </Menu.Item>
                     <Menu.Item>
-                        {/* <Input size='small' placeholder='Search...' value={this.state.searchValue} onChange={this.handleChange}> <Button primary size='small' onClick={this.handleSubmit}>Search
-                            </Button></Input> */}
-
                         <Input size='tiny' value={this.state.searchValue} onChange={this.handleChange}
                             icon={<Icon name='search' inverted circular link onClick={this.handleSubmit} />}
-                            placeholder='Search...'
-                        />
+                            placeholder='Search...'/>
                     </Menu.Item>
                 </Menu> : null}
                 <Visibility
@@ -68,7 +64,7 @@ class SearchHeader extends Component {
                             <Header as='h1'
                                 content={this.state.title}
                                 inverted
-                                style={{ fontSize: '4em', fontWeight: 'normal', marginBottom: 0, marginTop: '1em' }}
+                                style={{ fontSize: '4em', fontWeight: 'normal', marginBottom: 0, marginTop: '0em' }}
                             />
                             <Header
                                 as='h2'
