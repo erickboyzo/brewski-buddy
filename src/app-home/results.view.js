@@ -32,8 +32,7 @@ class ResultsView extends Component {
 
     renderResults(results) {
         if (results) {
-            return results.map((item, index) => (
-                <Card raised='true'>
+            return results.map((item, index) => (<Card raised='true'>
                     <Card.Content>
                         <Card.Header> {item.name}
                         </Card.Header>
@@ -68,14 +67,14 @@ class ResultsView extends Component {
         this.setState({
             loading: true
         })
-        fetch(`https://api.brewerydb.com/v2/search?q=${name}&type=beer&key=${API_KEY}&callback=JSON_CALLBACK`)
+        fetch(`https://api.brewerydb.com/v2/search?q=${name}&type=beer&key=${API_KEY}&callback=JSON_CALLBACK`,{  mode: 'cors' })
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
                     results: responseJson.data,
                     loading: false
                 });
-                return responseJson.results;
+                return responseJson.data;
             })
             .catch((error) => {
                 this.setState({
