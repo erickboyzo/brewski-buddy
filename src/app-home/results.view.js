@@ -67,7 +67,9 @@ class ResultsView extends Component {
         this.setState({
             loading: true
         })
-        fetch(`https://api.brewerydb.com/v2/search?q=${name}&type=beer&key=${API_KEY}&callback=JSON_CALLBACK`,{  mode: 'cors' })
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+        const url = `https://api.brewerydb.com/v2/search?q=${name}&type=beer&key=${API_KEY}&callback=JSON_CALLBACK`; 
+        fetch(proxyurl + url)
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
