@@ -32,7 +32,7 @@ class AppHome extends Component {
         return (
             <div>
                 <SearchHeader callbackFromParent={this.myCallback}/>
-                <Segment style={{ margin: '3em 0em 6em'}}>
+                <Segment style={{ margin: '3em 3em 6em'}}>
                     <ResultsList searchData={this.state.searchData}></ResultsList>
                 </Segment>
                 <AppFooter/>

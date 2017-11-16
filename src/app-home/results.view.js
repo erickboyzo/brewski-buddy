@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import AppLoader from './app.loader.js';
-import {API_KEY} from './app.constants.js';
+import ResultDetails from './result.details.js';
+import { API_KEY } from './app.constants.js';
 import './results.view.css';
 import {
     Card,
@@ -15,7 +16,8 @@ class ResultsView extends Component {
         super(props);
         this.state = {
             results: null,
-            loading: false
+            loading: false,
+            noData: 'No data found.'
         };
     }
 
@@ -33,30 +35,36 @@ class ResultsView extends Component {
     renderResults(results) {
         if (results) {
             return results.map((item, index) => (<Card raised='true'>
-                    <Card.Content>
-                        <Card.Header> {item.name}
-                        </Card.Header>
-                        <Card.Meta >
+                <Card.Content>
+                    <Card.Header> {item.nameDisplay}
+                    </Card.Header>
+                    <Card.Meta >
                         <span> abv:
                         </span>
-                            <span> <bold>{item.abv ? `${item.abv} %` : 'No data found'}</bold > </span>
-                        </Card.Meta >
-                        <Card.Description>
-                            <div class="content-labels"> Description:
+                        <span> <bold>{item.abv ? `${item.abv} %` : this.state.noData}</bold > </span>
+                    </Card.Meta >
+                    <Card.Description>
+                        <div class="content-labels"> Style:
                             </div>
-                            {item.description ? item.description : 'No data'}
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <a>
-                            <Icon name='plus'/>View more details
-                        </a>
-                    </Card.Content>
-                </Card>
+                        <p>{item.style ? item.style.category.name : this.state.noData}</p>
+
+                        <div class="content-labels"> Available:
+                            </div>
+                        <p>{item.available ? item.available.description : this.state.noData}</p>
+
+                        <div class="content-labels"> Description:
+                            </div>
+                       <p> {item.description ? item.description : this.state.noData} </p>
+                    </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                    <ResultDetails resultData={item}  />
+                </Card.Content>
+            </Card>
             ));
         } else return <Container text textAlign='center'>
-            <Header as='h2' icon>
-                <Icon name='frown'/> No Search Results
+            <Header as='h1' icon>
+                <Icon name='frown' /> No Search Results
                 <Header.Subheader>C'mon now, you can do better than that!!
                 </Header.Subheader>
             </Header>
@@ -68,7 +76,7 @@ class ResultsView extends Component {
             loading: true
         })
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        const url = `https://api.brewerydb.com/v2/search?q=${name}&type=beer&key=${API_KEY}&callback=JSON_CALLBACK`; 
+        const url = `https://api.brewerydb.com/v2/search?q=${name}&type=beer&key=${API_KEY}&callback=JSON_CALLBACK`;
         fetch(proxyurl + url)
             .then((response) => response.json())
             .then((responseJson) => {

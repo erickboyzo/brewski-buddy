@@ -35,6 +35,14 @@ class SearchHeader extends Component {
         this.props.callbackFromParent(this.state.searchValue);
     }
 
+    _handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            if(this.state.searchValue){
+                this.handleSubmit();
+            }
+        }
+      }
+
     render() {
         const { visible } = this.state;
         return (
@@ -45,7 +53,7 @@ class SearchHeader extends Component {
                         <Header as='h5' className='ui inverted header'>{this.state.title}</Header>
                     </Menu.Item>
                     <Menu.Item>
-                        <Input size='tiny' value={this.state.searchValue} onChange={this.handleChange}
+                        <Input size='tiny' value={this.state.searchValue} onKeyPress={this._handleKeyPress} onChange={this.handleChange}
                             icon={<Icon name='search' inverted circular link onClick={this.handleSubmit} />}
                             placeholder='Search...'/>
                     </Menu.Item>
@@ -68,14 +76,14 @@ class SearchHeader extends Component {
                             />
                             <Header
                                 as='h2'
-                                content='Trying a new beer? Not sure what it is? Fear no more search and see what I find for you.'
+                                content='Trying a new beer? Not sure what it is? Fear no more, search and see what I find for you.'
                                 inverted
                                 style={{ fontSize: '1.7em', fontWeight: 'normal' }} />
 
                             <Grid>
                                 <Grid.Row>
                                     <Grid.Column width={16}>
-                                        <Input placeholder='Search...' fluid={true} size='large' value={this.state.searchValue} onChange={this.handleChange} />
+                                        <Input placeholder='Search...' fluid={true} size='large' value={this.state.searchValue} onKeyPress={this._handleKeyPress} onChange={this.handleChange} />
                                     </Grid.Column>
                                 </Grid.Row>
 
