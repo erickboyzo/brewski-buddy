@@ -3,19 +3,7 @@ import ResultsList from './results.view.js';
 import SearchHeader from './app.header.js';
 import AppFooter from './app.footer.js';
 import {
-    Button,
-    Card,
-    Input,
-    Container,
-    Divider,
-    Grid,
-    Header,
-    Icon,
-    Image,
-    List,
-    Menu,
-    Segment,
-    Visibility,
+    Segment
 } from 'semantic-ui-react'
 
 class AppHome extends Component {
@@ -24,7 +12,6 @@ class AppHome extends Component {
 
 
     myCallback = (dataFromChild) => {
-        console.log(dataFromChild);
         this.setState({ searchData: dataFromChild });
     };
 
@@ -32,7 +19,7 @@ class AppHome extends Component {
         return (
             <div>
                 <SearchHeader callbackFromParent={this.myCallback}/>
-                <Segment style={{ margin: '3em 3em 6em'}}>
+                <Segment style={{ margin: '5.6em 3em 6em'}}>
                     <ResultsList searchData={this.state.searchData}></ResultsList>
                 </Segment>
                 <AppFooter/>
