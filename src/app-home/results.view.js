@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import AppLoader from './app.loader.js';
 import ResultDetails from './result.details.js';
-import { API_KEY } from './app.constants.js';
 import './results.view.css';
 import {
     Card,
@@ -9,6 +8,7 @@ import {
     Header,
     Icon
 } from 'semantic-ui-react'
+import axios from 'axios';
 
 
 class ResultsView extends Component {
@@ -34,7 +34,8 @@ class ResultsView extends Component {
 
     renderResults(results) {
         if (results) {
-            return results.map((item, index) => (<Card raised='true'>
+            return results.map((item, index) => (
+            <Card raised={true}>
                 <Card.Content>
                     <Card.Header> {item.nameDisplay}
                     </Card.Header>
@@ -44,15 +45,15 @@ class ResultsView extends Component {
                         <span> <bold>{item.abv ? `${item.abv} %` : this.state.noData}</bold > </span>
                     </Card.Meta >
                     <Card.Description>
-                        <div class="content-labels"> Style:
+                        <div className="content-labels"> Style:
                             </div>
                         <p>{item.style ? item.style.category.name : this.state.noData}</p>
 
-                        <div class="content-labels"> Available:
+                        <div className="content-labels"> Available:
                             </div>
                         <p>{item.available ? item.available.description : this.state.noData}</p>
 
-                        <div class="content-labels"> Description:
+                        <div className="content-labels"> Description:
                             </div>
                        <p> {item.description ? item.description : this.state.noData} </p>
                     </Card.Description>
@@ -71,27 +72,37 @@ class ResultsView extends Component {
         </Container>;
     }
 
-    getQueryResults(name) {
+    getQueryResults(name, type = 'beer') {
         this.setState({
             loading: true
         })
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        const url = `https://api.brewerydb.com/v2/search?q=${name}&type=beer&key=${API_KEY}&callback=JSON_CALLBACK`;
-        fetch(proxyurl + url)
-            .then((response) => response.json())
-            .then((responseJson) => {
+        // const proxyurl = "https://cors-anywhere.herokuapp.com/";
+        // const url = `https://api.brewerydb.com/v2/search?q=${name}&type=${type}&key=${API_KEY}&callback=JSON_CALLBACK`;
+        // fetch(proxyurl + url)
+        //     .then((response) => response.json())
+        //     .then((responseJson) => {
+        //         this.setState({
+        //             results: responseJson.data,
+        //             loading: false
+        //         });
+        //         return responseJson.data;
+        //     })
+        //     .catch((error) => {
+        //         this.setState({
+        //             loading: false
+        //         });
+        //         console.error(error);
+        //     });
+
+        axios.get(`/.netlify/functions/search`, { params: { q: name, type, callback:'JSON_CALLBACK'} })
+            .then(response => {
+                console.log(response);
                 this.setState({
-                    results: responseJson.data,
+                    results: response.data.data,
                     loading: false
                 });
-                return responseJson.data;
             })
-            .catch((error) => {
-                this.setState({
-                    loading: false
-                });
-                console.error(error);
-            });
+            .catch((error) => console.error(error));
     }
 
     render() {
