@@ -1,7 +1,9 @@
 {
-  "name": "test-app",
+  "name": "brewski-buddy",
   "version": "0.1.0",
   "private": true,
+  "author":{ "name" : "Erick Boyzo", 
+             "email" : "erickb59@gmail.com"},
   "dependencies": {
     "axios": "^0.19.0",
     "http-proxy-middleware": "^0.19.1",
