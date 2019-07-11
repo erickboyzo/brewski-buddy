@@ -6,13 +6,10 @@ import {
     Grid,
     Header,
     Icon,
-    Image,
-    List,
     Menu,
     Segment,
     Visibility,
 } from 'semantic-ui-react'
-
 
 class SearchHeader extends Component {
 

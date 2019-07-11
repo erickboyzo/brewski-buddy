@@ -3,7 +3,6 @@ import {
     Button,
     Icon,
     Image,
-    Header,
     Modal
 } from 'semantic-ui-react'
 
