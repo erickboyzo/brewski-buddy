@@ -1,5 +1,5 @@
 # Brewski Buddy
-App can be live here
+Live App can be found here: 
 https://brewski-buddy.netlify.com
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
