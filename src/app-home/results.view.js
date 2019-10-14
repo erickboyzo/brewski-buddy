@@ -2,14 +2,8 @@ import React, { Component } from 'react';
 import AppLoader from './app.loader.js';
 import ResultDetails from './result.details.js';
 import './results.view.css';
-import {
-    Card,
-    Container,
-    Header,
-    Icon
-} from 'semantic-ui-react'
+import { Card, Container, Header, Icon } from 'semantic-ui-react'
 import axios from 'axios';
-
 
 class ResultsView extends Component {
     constructor(props) {
@@ -39,11 +33,11 @@ class ResultsView extends Component {
                     <Card.Content>
                         <Card.Header> {item.nameDisplay}
                         </Card.Header>
-                        <Card.Meta >
+                        <Card.Meta>
                             <span> ABV:
                         </span>
-                            <span> <bold>{item.abv ? `${item.abv} %` : this.state.noData}</bold > </span>
-                        </Card.Meta >
+                            <span> <bold>{item.abv ? `${item.abv} %` : this.state.noData}</bold> </span>
+                        </Card.Meta>
                         <Card.Description>
                             <div className="content-labels"> Style:
                             </div>
@@ -59,13 +53,13 @@ class ResultsView extends Component {
                         </Card.Description>
                     </Card.Content>
                     <Card.Content extra>
-                        <ResultDetails resultData={item} />
+                        <ResultDetails resultData={item}/>
                     </Card.Content>
                 </Card>
             ));
         } else return <Container text textAlign='center'>
             <Header as='h1' icon>
-                <Icon name='frown' /> No Search Results
+                <Icon name='frown'/> No Search Results
                 <Header.Subheader>C'mon now, you can do better than that!!
                 </Header.Subheader>
             </Header>
@@ -76,28 +70,35 @@ class ResultsView extends Component {
         this.setState({
             loading: true
         });
-        axios.get(`/.netlify/functions/search`, { params: { q: name, type, callback: 'JSON_CALLBACK' } })
+        axios.get(`/.netlify/functions/search`, {params: {q: name, type, callback: 'JSON_CALLBACK'}})
             .then(response => {
                 this.setState({
                     results: response.data.data,
                     loading: false
                 });
+            }, error => {
+                this.setState({
+                    loading: false
+                });
             })
-            .catch((error) => console.error(error));
+            .catch((error) => this.setState({
+                loading: false
+            }));
     }
 
     render() {
         let results = this.renderResults(this.state.results);
         const {
             loading
-        } = this.state
+        } = this.state;
         return (
             <div>
-                {loading ? <AppLoader /> : null}
+                {loading ? <AppLoader/> : null}
                 <Card.Group> {results}
                 </Card.Group>
             </div>
         );
     }
 }
+
 export default ResultsView

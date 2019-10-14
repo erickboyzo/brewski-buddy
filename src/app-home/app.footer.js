@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-    Container,
-    Image,
-    Segment,
-} from 'semantic-ui-react'
+import { Container, Image, Segment, } from 'semantic-ui-react'
 
 class AppFooter extends Component {
 
@@ -13,9 +9,10 @@ class AppFooter extends Component {
                 <Segment
                     inverted
                     vertical
-                    style={{ margin: '5em 0em 0em', padding: '0em 0em' }}>
+                    style={{margin: '5em 0em 0em', padding: '0em 0em'}}>
                     <Container textAlign='center'>
-                        <Image src='http://s3.amazonaws.com/brewerydb/Powered-By-BreweryDB.png' height='35' width='180' centered></Image>
+                        <Image src='http://s3.amazonaws.com/brewerydb/Powered-By-BreweryDB.png' height='35' width='180'
+                               centered></Image>
                     </Container>
                 </Segment>
             </div>
